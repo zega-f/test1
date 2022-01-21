@@ -1,0 +1,14 @@
+.modal-dark{
+	background: rgb(0, 0, 0, 0.4);
+}
+
+.bg-white{
+	background-color: white;
+}
+
+.pointer{
+	cursor: pointer;
+}
+.table{
+	font-size: 14px !important;
+}
