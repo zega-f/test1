@@ -29,7 +29,7 @@ class NasabahController extends Controller
         ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
         ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
         ->where('transaksi.AccountID',$id)
-        ->get();
+        ->paginate(20);
 
         return view('show_nasabah',compact('this_nasabah','this_nasabah_transaksi'));
     }
@@ -47,5 +47,50 @@ class NasabahController extends Controller
         }else{
             return response($this_nasabah->Balance);
         }
+    }
+
+    public function search(Request $request, $id)
+    {
+        $this_nasabah = DB::table('nasabah')
+        ->where('AccountID',$id)
+        ->first();
+
+        $start = $request->start;
+        $end = $request->end;
+
+        if ($start && $end) {
+            $this_nasabah_transaksi = DB::table('transaksi')
+            ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
+            ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
+            ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
+            ->where('transaksi.AccountID',$id)
+            ->whereBetween('transaksi.TransactionDate',[$start, $end])
+            ->paginate(10);
+        }elseif ($start && !$end) {
+            $this_nasabah_transaksi = DB::table('transaksi')
+            ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
+            ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
+            ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
+            ->where('transaksi.AccountID',$id)
+            ->whereDate('transaksi.TransactionDate','>=',$start)
+            ->paginate(10);
+        }elseif (!$start && $end) {
+            $this_nasabah_transaksi = DB::table('transaksi')
+            ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
+            ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
+            ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
+            ->where('transaksi.AccountID',$id)
+            ->whereDate('transaksi.TransactionDate','<=',$end)
+            ->paginate(10);
+        }else{
+            $this_nasabah_transaksi = DB::table('transaksi')
+            ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
+            ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
+            ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
+            ->where('transaksi.AccountID',$id)
+            ->paginate(10);
+        }
+
+        return view('show_nasabah',compact('this_nasabah','this_nasabah_transaksi','start','end'));
     }
 }

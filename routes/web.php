@@ -30,6 +30,8 @@ Route::get('/', function () {
 Route::post('store_nasabah',[NasabahController::class,'store'])->name('store_nasabah');
 // show
 Route::get('show_nasabah/{id}',[NasabahController::class,'all_transaksi']);
+// search transaksi nasabah
+Route::get('search_transaksi_nasabah/{id}',[NasabahController::class,'search']);
 
 
 // TRANSAKSI

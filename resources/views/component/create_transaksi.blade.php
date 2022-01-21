@@ -35,8 +35,12 @@
 					<label>Current Balance</label>
 					<input type="number" id="currentBalance" disabled class="form-control">
 				</div>
+				<div class="form-group mb-3">
+					<label>Date</label>
+					<input type="date" name="date" class="form-control" required>
+				</div>
 				<div class="transaction-msg-bag"></div>
-				<button class="btn btn-dark btn-sm" id="saving" type="button" onclick="checkingBalanceB4Submit();" disabled>Simpan</button>
+				<button class="btn btn-dark btn-sm" id="saving" onclick="checkingBalanceB4Submit();" disabled>Simpan</button>
 			</form>
 		</div>
 	</div>

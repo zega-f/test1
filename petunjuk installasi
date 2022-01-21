@@ -1,3 +1,8 @@
+*membutuhkan PHP 8^
 1. Copy & paste folder dari aplikasi ini kedalam htdocs
-2. Pada phpMyAdmin buat database dengan nama db_test1 atau default dari .env dengan nama pulsa
-3. Import pulsa.sql kedalam database yang telah Anda buat
+2. Buat file .env pada root dari aplikasi ini dengan meng copy dan paste dari file .env.example
+3. Change working directory kedalam folder aplikasi lalu jalankan perintah : composer install
+4. Pastikan Anda memiliki Composer yang sudah terinstall pada komputer Anda lalu jalankan : php artisan key:generate
+5. Jalankan perintah : php artisan key:generate
+6. Pada phpMyAdmin buat database dengan nama pulsa
+7. Import pulsa.sql kedalam database yang telah Anda buat

@@ -20,8 +20,9 @@ function createTransaksi()
 	});
 }
 
-function checkingBalanceB4Submit()
+function checkingBalanceB4Submit(e)
 {
+	e.preventDefault();
 	var url = base_url+'CheckTransaction';
 	let Transaction_Form = document.getElementById('transaction_form');
 	let formData = new FormData(Transaction_Form);
