@@ -1,0 +1,3 @@
+1. Copy & paste folder dari aplikasi ini kedalam htdocs
+2. Pada phpMyAdmin buat database dengan nama db_test1 atau default dari .env dengan nama pulsa
+3. Import pulsa.sql kedalam database yang telah Anda buat

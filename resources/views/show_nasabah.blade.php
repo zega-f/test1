@@ -7,7 +7,7 @@
 	    <li class="breadcrumb-item active" aria-current="page">Nasabah</li>
 	  </ol>
 	</nav>
-	<h5>{{$this_nasabah->Name}}</h5>
+	<h5>{{$this_nasabah->Name}} | Rp. {{number_format($this_nasabah->Balance)}} | {{$this_nasabah->Point}} Points</h5>
 	<table class="table">
 		<thead>
 			<tr>
@@ -24,7 +24,7 @@
 			<tr>
 				<td>{{$transaksi->Name}}</td>
 				<td>{{$transaksi->TransactionDate}}</td>
-				<td>{{$transaksi->Description}}</td>
+				<td>{{$transaksi->jenis_transaksi}}</td>
 				<td>
 					@if($transaksi->DebitCreditStatus=='C')
 					Credit

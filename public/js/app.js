@@ -32,7 +32,7 @@ function checkingBalanceB4Submit()
 		data : formData,
 		success:function(data)
 		{
-			if (data['type']=='ok') {
+			if (data['type']=='oke') {
 				$('#transaction_form').submit();
 				$('.transaction-msg-bag').html('')
 			}else{

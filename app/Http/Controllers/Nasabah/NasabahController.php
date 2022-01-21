@@ -26,7 +26,8 @@ class NasabahController extends Controller
 
         $this_nasabah_transaksi = DB::table('transaksi')
         ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
-        ->select('transaksi.*','nasabah.Name')
+        ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
+        ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
         ->where('transaksi.AccountID',$id)
         ->get();
 

@@ -16,7 +16,7 @@
 			<tr>
 				<td>{{$transaksi->Name}}</td>
 				<td>{{$transaksi->TransactionDate}}</td>
-				<td>{{$transaksi->Description}}</td>
+				<td>{{$transaksi->jenis_transaksi}}</td>
 				<td>
 					@if($transaksi->DebitCreditStatus=='C')
 					Credit

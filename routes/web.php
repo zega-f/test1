@@ -19,7 +19,8 @@ Route::get('/', function () {
     $all_nasabah = DB::table('nasabah')->get();
     $all_transaksi = DB::table('transaksi')
     ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
-    ->select('transaksi.*','nasabah.Name')
+    ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
+    ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
     ->get();
     return view('welcome',compact('all_nasabah','all_transaksi'));
 });
