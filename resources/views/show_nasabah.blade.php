@@ -65,6 +65,5 @@
 			@endforeach
 		</tbody>
 	</table>
-	{{$this_nasabah_transaksi->appends($_GET)->links()}}
 </div>
 @endsection

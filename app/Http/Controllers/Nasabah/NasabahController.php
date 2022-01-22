@@ -65,7 +65,7 @@ class NasabahController extends Controller
             ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
             ->where('transaksi.AccountID',$id)
             ->whereBetween('transaksi.TransactionDate',[$start, $end])
-            ->paginate(10);
+            ->get();
         }elseif ($start && !$end) {
             $this_nasabah_transaksi = DB::table('transaksi')
             ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
@@ -73,7 +73,7 @@ class NasabahController extends Controller
             ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
             ->where('transaksi.AccountID',$id)
             ->whereDate('transaksi.TransactionDate','>=',$start)
-            ->paginate(10);
+            ->get();
         }elseif (!$start && $end) {
             $this_nasabah_transaksi = DB::table('transaksi')
             ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
@@ -81,14 +81,14 @@ class NasabahController extends Controller
             ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
             ->where('transaksi.AccountID',$id)
             ->whereDate('transaksi.TransactionDate','<=',$end)
-            ->paginate(10);
+            ->get();
         }else{
             $this_nasabah_transaksi = DB::table('transaksi')
             ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
             ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
             ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
             ->where('transaksi.AccountID',$id)
-            ->paginate(10);
+            ->get();
         }
 
         return view('show_nasabah',compact('this_nasabah','this_nasabah_transaksi','start','end'));

@@ -1,6 +1,6 @@
 <div class="container">
 	<h5>Transaksi</h5>
-	<table class="table" id="transaksi-table">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>Nama</th>

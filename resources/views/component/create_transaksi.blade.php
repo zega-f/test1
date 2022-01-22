@@ -40,8 +40,30 @@
 					<input type="date" name="date" class="form-control" required>
 				</div>
 				<div class="transaction-msg-bag"></div>
-				<button class="btn btn-dark btn-sm" id="saving" onclick="checkingBalanceB4Submit();" disabled>Simpan</button>
+				<button class="btn btn-dark btn-sm" id="saving" onclick="checkingBalanceB4Submit(event);" disabled>Simpan</button>
 			</form>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.js-example-basic-single').on('change',function(e){
+			var url = base_url+'getBalance';
+			$.ajax({
+				type : 'get',
+				url : url,
+				data : {AccountID:$(this).val()},
+				success:function(data)
+				{
+					$('#currentBalance').val(data);
+					$('#saving').prop('disabled',false);
+				},
+				error:function()
+				{
+					$('#currentBalance').val('');
+					$('#saving').prop('disabled',true);
+				}
+			})	
+		})
+	})
+</script>

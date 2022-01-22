@@ -32,6 +32,7 @@ Route::post('store_nasabah',[NasabahController::class,'store'])->name('store_nas
 Route::get('show_nasabah/{id}',[NasabahController::class,'all_transaksi']);
 // search transaksi nasabah
 Route::get('search_transaksi_nasabah/{id}',[NasabahController::class,'search']);
+// search nasabah
 
 
 // TRANSAKSI
@@ -40,3 +41,11 @@ Route::post('store_transaksi',[TransaksiController::class,'store'])->name('store
 Route::get('getBalance',[NasabahController::class,'getBalance']);
 // validating transaction
 Route::post('CheckTransaction',[TransaksiController::class,'CheckTransaction']);
+// Laporan
+Route::get('Laporan',function(){
+    $all_nasabah = DB::table('nasabah')->get();
+    return view('laporan',compact('all_nasabah'));
+});
+
+// search laporan
+Route::get('searchTransaction',[TransaksiController::class,'searchTransaction']);

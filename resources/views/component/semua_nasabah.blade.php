@@ -1,6 +1,6 @@
 <div class="container">
 	<h5>Nasabah</h5>
-	<table class="table" id="nasabah-table">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>ID</th>

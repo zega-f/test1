@@ -134,4 +134,52 @@ class TransaksiController extends Controller
 
         return response($output);
     }
+
+    public function searchTransaction(Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+
+        /*
+            1. Kondisi ketika ada tanggal mulai dan akhir
+            2. Kondisi ketika hanya ada tanggal mulai tanpa tanggal akhir
+            3. Kondisi ketika hanya ada tanggal akhir tanpa tanggal mulai
+            4. Ketika tidak ada tanggal akhir dan mulai yang diberikan oleh user
+        */
+        if ($start && $end) {
+            $this_nasabah_transaksi = DB::table('transaksi')
+            ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
+            ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
+            ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
+            ->where('transaksi.AccountID',$request->nasabah_name)
+            ->whereBetween('transaksi.TransactionDate',[$start, $end])
+            ->get();
+        }elseif ($start && !$end) {
+            $this_nasabah_transaksi = DB::table('transaksi')
+            ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
+            ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
+            ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
+            ->where('transaksi.AccountID',$request->nasabah_name)
+            ->whereDate('transaksi.TransactionDate','>=',$start)
+            ->get();
+        }elseif (!$start && $end) {
+            $this_nasabah_transaksi = DB::table('transaksi')
+            ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
+            ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
+            ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
+            ->where('transaksi.AccountID',$request->nasabah_name)
+            ->whereDate('transaksi.TransactionDate','<=',$end)
+            ->get();
+        }else{
+            $this_nasabah_transaksi = DB::table('transaksi')
+            ->join('nasabah','transaksi.AccountID','=','nasabah.AccountID')
+            ->join('jenis_transaksi','transaksi.TransactionType','=','jenis_transaksi.id_jenis')
+            ->select('transaksi.*','nasabah.Name','jenis_transaksi.jenis_transaksi','jenis_transaksi.type')
+            ->where('transaksi.AccountID',$request->nasabah_name)
+            ->get();
+        }
+
+        // return response($request->start);
+        return response(json_decode($this_nasabah_transaksi,true));
+    }
 }

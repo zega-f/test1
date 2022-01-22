@@ -47,25 +47,6 @@ function checkingBalanceB4Submit(e)
 }
 
 $(document).ready(function() {
-	$('.js-example-basic-single').on('change',function(e){
-		var url = base_url+'getBalance';
-		$.ajax({
-			type : 'get',
-			url : url,
-			data : {AccountID:$(this).val()},
-			success:function(data)
-			{
-				$('#currentBalance').val(data);
-				$('#saving').prop('disabled',false);
-			},
-			error:function()
-			{
-				$('#currentBalance').val('');
-				$('#saving').prop('disabled',true);
-			}
-		})	
-	})
-
     $('.js-example-basic-single').select2();
     $('#nasabah-table').DataTable();
     $('#transaksi-table').DataTable();
