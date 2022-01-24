@@ -43,7 +43,7 @@ class TransaksiController extends Controller
 
         if ($acc==1) {
 
-            $datetime = $request->date;
+            $datetime = date('Y-m-d');
 
             $type = $request->jenis;
             $nominal = $request->amount;
