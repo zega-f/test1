@@ -122,14 +122,18 @@ class TransaksiController extends Controller
         ->where('id_jenis',$request->jenis)
         ->value('type');
 
-        if ($transaksi_type=="D") {
-            if ($currentBalance-$request->amount<1) {
-                $output = ['type'=>'bad','msg'=>'<div class="alert alert-danger">Harap Untuk cek ketersediaan saldo untuk melakukan transaksi debit</div>'];
+        if (!$request->amount) {
+            $output = ['type'=>'bad','msg'=>'<div class="alert alert-danger">Nominal Transaksi tidak boleh kosong</div>'];
+        }else{
+            if ($transaksi_type=="D") {
+                if ($currentBalance-$request->amount<1) {
+                    $output = ['type'=>'bad','msg'=>'<div class="alert alert-danger">Harap Untuk cek ketersediaan saldo untuk melakukan transaksi debit</div>'];
+                }else{
+                    $output = ['type'=>'oke'];
+                }
             }else{
                 $output = ['type'=>'oke'];
             }
-        }else{
-            $output = ['type'=>'oke'];
         }
 
         return response($output);
